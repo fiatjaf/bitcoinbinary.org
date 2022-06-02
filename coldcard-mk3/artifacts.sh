@@ -3,12 +3,12 @@
 find ./firmware -type f -name firmware*.bin >&2
 
 DATE=`date +%Y-%m-%d`
-VERSION=5.0.4
-VERSION_STRING="2022-05-27T1500-v${VERSION}"
+VERSION=4.1.5
+VERSION_STRING="2022-05-04T1258-v${VERSION}"
 URL="https://coldcard.com"
 REPO="https://github.com/Coldcard/firmware"
-CHECKSUM_SOURCE="https://raw.githubusercontent.com/Coldcard/firmware/master/releases/signatures.txt"
-PROJECT="coldcard"
+CHECKSUM_SOURCE="https://raw.githubusercontent.com/Coldcard/firmware/v4-legacy/releases/signatures.txt"
+PROJECT="coldcard-mk3"
 SHA256=`shasum -a 256 firmware/stm32/firmware-signed.bin | cut -f 1 -d ' '`
 
 # Note GITHUB_ environment variables are populated by Github Actions

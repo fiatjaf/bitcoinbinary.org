@@ -1,13 +1,15 @@
 #!/bin/bash
 
+find ./firmware -type f -name firmware*.bin >&2
+
 DATE=`date +%Y-%m-%d`
-URL="http://zaphq.io/"
-VERSION="0.5.6-beta"
-VERSION_STRING="v${VERSION}"
-REPO="https://github.com/LN-Zap/zap-android"
-CHECKSUM_SOURCE="https://github.com/LN-Zap/zap-android/releases/tag/${VERSION_STRING}"
-PROJECT="zap-android"
-SHA256=`shasum -a 256 "zap-android/app/build/outputs/apk/release/zap-android-${VERSION}(36)-release-unsigned.apk" | cut -f 1 -d ' '`
+VERSION=4.1.5
+VERSION_STRING="2022-05-04T1258-v${VERSION}"
+URL="https://coldcard.com"
+REPO="https://github.com/Coldcard/firmware"
+CHECKSUM_SOURCE="https://raw.githubusercontent.com/Coldcard/firmware/v4-legacy/releases/signatures.txt"
+PROJECT="coldcard-mk3"
+SHA256=`shasum -a 256 firmware/stm32/firmware-signed.bin | cut -f 1 -d ' '`
 
 # Note GITHUB_ environment variables are populated by Github Actions
 ARTIFACT_BASEURL="https://github.com/${GITHUB_REPOSITORY}/raw"

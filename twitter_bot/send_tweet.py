@@ -5,8 +5,6 @@ import tweepy
 tweet_file = open(sys.argv[1], "r")
 tweet_text = tweet_file.read()
 
-video_file = open(sys.argv[2], "r")
-
 auth = tweepy.OAuth1UserHandler(
     os.environ["TWITTER_API_KEY"],
     os.environ["TWITTER_API_SECRET"],
@@ -40,3 +38,6 @@ else:
     print(
         f"Tweeted without video: https://twitter.com/{my_screen_name}/status/{tweet.data['id']}\n"
     )
+
+tweet_url = f"https://twitter.com/{my_screen_name}/status/{tweet.data['id']}"
+open("tweet_url", "w").write(tweet_url)

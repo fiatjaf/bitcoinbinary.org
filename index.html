@@ -1,5 +1,6 @@
 <title>BitcoinBinary.org - A repository of Reproducible Build Proofs for Bitcoin Projects</title>
 <link rel="icon" href="bitcoinbinary.org.png">
+<link rel="stylesheet" href="https://unpkg.com/asciinema-player@3.0.1/dist/bundle/asciinema-player.css">
 <style>
 
 html, body, div, span, applet, object, iframe,
@@ -165,15 +166,32 @@ input:checked + .slider:before {
   margin:20px auto;
   text-align: center;	
 }
+.asciinema-wrapper{
+  display: flex;
+  padding: 18px;
+  align-items: center;
+  justify-items: center;
+  height: 32em;
+}
 .bot{
-    color: #ff8300;
-    display: inline-block;
-    padding: 1px 5px 0;
-    font-size: 0.75em;
-    background: #fff6ef;
-    border: 1px solid #ff8300;
-    border-radius: 5px;
-    margin-top: -4px;
+  color: #ff8300;
+  display: inline-block;
+  padding: 1px 5px 0;
+  font-size: 0.75em;
+  background: #fff6ef;
+  border: 1px solid #ff8300;
+  border-radius: 5px;
+  margin-top: -4px;
+}
+.tweet{
+  color: #1d9bf0;
+  display: inline-block;
+  padding: 1px 5px 0;
+  font-size: 0.75em;
+  background: #fff6ef;
+  border: 1px solid #1d9bf0;
+  border-radius: 5px;
+  margin-top: -4px;
 }
 </style>
 
@@ -222,6 +240,10 @@ input:checked + .slider:before {
 <a href="link to vendor release announcement">YYYY-MM-DD</a> | <a href="wallet site">wallet name</a>  | software version #.##.## <a href="src link">[src]</a> | SHA256 | <a href="wallet site">link to video</a> | notes | <a href="link to some public profile">builder name</a>
 --->
 <hr>
+
+<div id="asciinema-wrapper">
+  <div id="asciinema" style="display: none"></div>
+</div>
 
 <h2>Binary Log:</h2>
 <ul class="log">
@@ -345,10 +367,43 @@ of artifacts. These may be upstream authors, distribution maintainers or any
 other distributor.</p>
 
 
+<script src="https://unpkg.com/asciinema-player@3.0.1/dist/bundle/asciinema-player.js"></script>
+<script>
+function darkMode() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
 
-<script type="text/javascript">
-	function darkMode() {
-	   var element = document.body;
-	   element.classList.toggle("dark-mode");
-	}
+// asciinema casts
+var player
+document.addEventListener('click', async (ev) => {
+  if (ev.target.href.endsWith('.cast')) {
+    ev.preventDefault()
+
+    if (player) {
+      // stop previous player
+      player.dispose()
+    }
+
+    // load asciicast data
+    let cast = await (await fetch(ev.target.href.split('/').slice(-2))).text()
+
+    // show and play
+    let container = document.getElementById('asciinema')
+    container.style.display = 'block'
+    player = AsciinemaPlayer.create({ data: cast }, container);
+    setTimeout(() => {
+      player.play()
+    }, 250)
+    player.addEventListener('ended', () => {
+      setTimeout(() => {
+        // check if player wasn't rewinded before closing it
+        if (player.getCurrentTime() === player.getDuration()) {
+          container.style.display = 'none'
+          player.dispose()
+        }
+      }, 2500)
+    })
+  }
+})
 </script>

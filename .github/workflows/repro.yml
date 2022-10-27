@@ -173,7 +173,6 @@ jobs:
                 ffmpeg -nostats -y -i ${PROJECT}-${VERSION}-video-original.mp4 -movflags faststart -pix_fmt yuv420p -filter:v "setpts=(139/${ORIGINAL_DURATION})*PTS" ${PROJECT}-${VERSION}-video.mp4
             fi
 
-
             . artifacts.sh
             ASCIINEMA_CAST_URL="https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/${PROJECT}/${PROJECT}-${VERSION}.cast"
             echo "<li><a href='${REPO}/releases/tag/${VERSION}'>${DATE}</a> | <a href='${URL}' class='project-name'>${PROJECT}</a> | <a href='${REPO}/releases/tag/${VERSION}'>${VERSION}</a> | <a href='${CHECKSUM_SOURCE}'> factory ${SHA256} </a>| <a href='${ASCIINEMA_CAST_URL}'>terminal recording</a> | <a href='https://github.com/coinkite/bitcoinbinary.org/blob/main/${PROJECT}/artifacts.sh' class="bot">build bot</a></li>" > ${PROJECT}-output.txt
